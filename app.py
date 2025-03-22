@@ -8,7 +8,6 @@ INSTANCIA = "3DE8910478AF3063BBAB32C54B267657"
 TOKEN = "4C238699A42CC1F7AC28584D"
 
 def enviar_mensagem(numero, mensagem):
-    # Validação básica antes de enviar
     if not numero:
         print("❌ Número de telefone está vazio ou inválido!")
         return {"error": "Número vazio"}
@@ -21,10 +20,12 @@ def enviar_mensagem(numero, mensagem):
 
     payload = {
         "phone": numero,
-        "message": mensagem
+        "message": mensagem,
+        "delayMessage": 0,   # Campo opcional comum
+        "priority": 1        # Campo opcional comum
     }
 
-    print(f"➡️ Enviando mensagem para {numero}: {mensagem}")
+    print(f"📦 Payload enviado: {payload}")
 
     try:
         headers = {'Content-Type': 'application/json'}
