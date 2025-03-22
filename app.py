@@ -3,21 +3,20 @@ import requests
 
 app = Flask(__name__)
 
-# INSIRA SUA INSTÂNCIA E TOKEN AQUI (não esquece das aspas!)
+# Substitua pelos seus dados REAIS da Z-API (com aspas)
 INSTANCIA = "3DE8910478AF3063BBAB32C54B267657"
 TOKEN = "4C238699A42CC1F7AC28584D"
 
-# Função para enviar mensagem via Z-API
 def enviar_mensagem(numero, mensagem):
     url = f"https://api.z-api.io/instances/{INSTANCIA}/token/{TOKEN}/send-message"
-
+    
     payload = {
         "phone": numero,
         "message": mensagem
     }
 
     print(f"➡️ Enviando mensagem para {numero}: {mensagem}")
-
+    
     try:
         response = requests.post(url, json=payload)
         resposta_json = response.json()
@@ -40,23 +39,23 @@ def webhook():
     print("✅ Webhook acionado!")
     print(f"📩 Dados recebidos: {dados}")
 
-    # Captura o número e a mensagem do cliente
     numero = dados.get('phone')
     mensagem = dados.get('message')
 
-    # Valida se os dados vieram corretos
+    # Segurança: verifica se capturou o número e mensagem
     if not numero:
-        print("❌ Número do cliente não encontrado.")
+        print("❌ Número não encontrado nos dados recebidos.")
         return jsonify({"status": "número não encontrado"})
 
     if not mensagem:
-        print("❌ Mensagem do cliente não encontrada.")
+        print("❌ Mensagem não encontrada nos dados recebidos.")
         return jsonify({"status": "mensagem não encontrada"})
 
-    # Monta a resposta
-    resposta = f"Obrigado pela sua mensagem: '{mensagem}'! Em breve entraremos em contato."
+    resposta = f"Obrigado pelo seu feedback: '{mensagem}'!"
 
-    # Envia a resposta automática
     resultado = enviar_mensagem(numero, resposta)
 
-    return jsonify({"status": "mensagem recebida e resposta enviada!", "resultado": resultado})
+    return jsonify({
+        "status": "mensagem recebida e resposta enviada!",
+        "resultado": resultado
+    })
