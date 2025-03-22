@@ -23,6 +23,11 @@ def enviar_mensagem(numero, mensagem):
         "delayMessage": 15
     }
 
+    headers = {
+        'Content-Type': 'application/json',
+        'Client-Token': 'F93***'
+        
+    }
     print(f"📦 Payload enviado: {payload}")
 
     try:
