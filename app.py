@@ -25,7 +25,7 @@ def enviar_mensagem(numero, mensagem):
 
     headers = {
         'Content-Type': 'application/json',
-        'Client-Token': 'F93***'
+        'Client-Token': 'F1c5ff3be2f5b4fa3a28ee04372cb674aS'
         
     }
     print(f"📦 Payload enviado: {payload}")
