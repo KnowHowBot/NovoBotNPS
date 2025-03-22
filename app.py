@@ -44,4 +44,3 @@ def webhook():
 
     return jsonify({"status": "mensagem recebida e respondida!"})
 
-# Sem necessidade de app.run(), pois estamos usando Gunicorn!
