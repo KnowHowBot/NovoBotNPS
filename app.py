@@ -8,7 +8,7 @@ INSTANCIA = "3DE8910478AF3063BBAB32C54B267657"
 TOKEN = "4C238699A42CC1F7AC28584D"
 
 def enviar_mensagem(numero, mensagem):
-    url = f"https://api.z-api.io/instances/{INSTANCIA}/token/{TOKEN}/send-message"
+    url = f"https://api.z-api.io/instances/{INSTANCIA}/token/{TOKEN}/send-messages"
     
     payload = {
         "phone": numero,
