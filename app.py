@@ -19,8 +19,8 @@ def enviar_mensagem(numero, mensagem):
 
     payload = {
         "phone": numero,
-        "message": mensagem
-        # "delayMessage": 15  # Se quiser usar, descomente
+        "message": mensagem,
+        "delayMessage": 15
     }
 
     print(f"📦 Payload enviado: {payload}")
