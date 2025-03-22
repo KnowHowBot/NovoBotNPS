@@ -3,11 +3,11 @@ import requests
 
 app = Flask(__name__)
 
-# Substitua pelos seus dados REAIS da Z-API (com aspas)
 INSTANCIA = "3DE8910478AF3063BBAB32C54B267657"
 TOKEN = "4C238699A42CC1F7AC28584D"
 
 def enviar_mensagem(numero, mensagem):
+    # Validação básica
     if not numero:
         print("❌ Número de telefone está vazio ou inválido!")
         return {"error": "Número vazio"}
@@ -16,13 +16,14 @@ def enviar_mensagem(numero, mensagem):
         print("❌ Mensagem está vazia!")
         return {"error": "Mensagem vazia"}
 
+    # URL para envio da mensagem
     url = f"https://api.z-api.io/instances/{INSTANCIA}/token/{TOKEN}/send-text"
 
     payload = {
         "phone": numero,
         "message": mensagem,
-        "delayMessage": 0,   # Campo opcional comum
-        "priority": 1        # Campo opcional comum
+        "delayMessage": 0,
+        "priority": 1
     }
 
     print(f"📦 Payload enviado: {payload}")
@@ -46,15 +47,17 @@ def home():
 @app.route('/webhook', methods=['POST'])
 def webhook():
     dados = request.json
-    
+
     print("✅ Webhook acionado!")
     print(f"📩 Dados recebidos: {dados}")
 
-    # Captura o número do remetente
+    # Captura e valida o número
     numero = dados.get('phone')
+    numero = str(numero).strip() if numero else None
 
-    # Corrigido: Captura a mensagem dentro de 'text' ➜ 'message'
+    # Captura e valida a mensagem recebida
     mensagem = dados.get('text', {}).get('message')
+    mensagem = str(mensagem).strip() if mensagem else None
 
     # Verificações básicas
     if not numero:
@@ -67,8 +70,10 @@ def webhook():
 
     print(f"➡️ Mensagem recebida de {numero}: {mensagem}")
 
+    # Monta a resposta
     resposta = f"Obrigado pelo seu feedback: '{mensagem}'!"
 
+    # Envia a resposta
     resultado = enviar_mensagem(numero, resposta)
 
     return jsonify({
