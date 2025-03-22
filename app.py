@@ -7,7 +7,6 @@ INSTANCIA = "3DE8910478AF3063BBAB32C54B267657"
 TOKEN = "4C238699A42CC1F7AC28584D"
 
 def enviar_mensagem(numero, mensagem):
-    # Validação básica
     if not numero:
         print("❌ Número de telefone está vazio ou inválido!")
         return {"error": "Número vazio"}
@@ -16,14 +15,11 @@ def enviar_mensagem(numero, mensagem):
         print("❌ Mensagem está vazia!")
         return {"error": "Mensagem vazia"}
 
-    # URL para envio da mensagem
     url = f"https://api.z-api.io/instances/{INSTANCIA}/token/{TOKEN}/send-text"
 
     payload = {
         "phone": numero,
-        "message": mensagem,
-        "delayMessage": 0,
-        "priority": 1
+        "message": mensagem
     }
 
     print(f"📦 Payload enviado: {payload}")
