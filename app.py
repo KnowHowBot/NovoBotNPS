@@ -1,14 +1,15 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 import os
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return 'Bot NPS rodando com sucesso no Render!'
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    dados = request.json
+    
+    # Logs para verificar que o webhook foi acionado
+    print("✅ Webhook acionado!")
+    print(f"📩 Dados recebidos: {dados}")
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    print(f"Rodando na porta {port}")
-    app.run(host='0.0.0.0', port=port)
+    return jsonify({"status": "mensagem recebida!"})
     
