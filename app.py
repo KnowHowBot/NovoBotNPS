@@ -4,13 +4,12 @@ import requests
 app = Flask(__name__)
 
 # Dados da sua instância Z-API
-INSTANCIA = 3DE8910478AF3063BBAB32C54B267657
-TOKEN = 4C238699A42CC1F7AC28584D
+INSTANCIA = “3DE8910478AF3063BBAB32C54B267657”
+TOKEN = “4C238699A42CC1F7AC28584D
 
 # Função para enviar mensagem automática via Z-API
 def enviar_mensagem(numero, mensagem):
-    url = f"https://api.z-api.io/instances/{INSTANCIA}/token/{TOKEN}/send-message"
-
+	https://api.z-api.io/instances/3DE8910478AF3063BBAB32C54B267657/token/4C238699A42CC1F7AC28584D/send-text
     payload = {
         "phone": numero,
         "message": mensagem
@@ -45,3 +44,4 @@ def webhook():
 
     return jsonify({"status": "mensagem recebida e respondida!"})
 
+# Sem necessidade de app.run(), pois estamos usando Gunicorn!
