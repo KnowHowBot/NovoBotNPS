@@ -39,10 +39,13 @@ def webhook():
     print("✅ Webhook acionado!")
     print(f"📩 Dados recebidos: {dados}")
 
+    # Captura o número do remetente
     numero = dados.get('phone')
-    mensagem = dados.get('message')
 
-    # Segurança: verifica se capturou o número e mensagem
+    # Corrigido: Captura a mensagem dentro de 'text' ➜ 'message'
+    mensagem = dados.get('text', {}).get('message')
+
+    # Verificações básicas
     if not numero:
         print("❌ Número não encontrado nos dados recebidos.")
         return jsonify({"status": "número não encontrado"})
@@ -50,6 +53,8 @@ def webhook():
     if not mensagem:
         print("❌ Mensagem não encontrada nos dados recebidos.")
         return jsonify({"status": "mensagem não encontrada"})
+
+    print(f"➡️ Mensagem recebida de {numero}: {mensagem}")
 
     resposta = f"Obrigado pelo seu feedback: '{mensagem}'!"
 
